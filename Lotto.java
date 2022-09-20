@@ -15,7 +15,7 @@ public class Lotto {
         for (int i = 0; i < 6; i++) {
             System.out.print(guessednumber[i] + " ");
         }
-        System.out.println();
+        System.out.println("Schluss");
     }
 
     // Funktionen
