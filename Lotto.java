@@ -1,22 +1,42 @@
+import java.util.Random;
 import java.util.Scanner;
-import java.util.random.*;
+
 
 public class Lotto {
     public static void main(String[] args) throws Exception {
 
-        int[] guessednumber = new int[6];
-
+        int[] guessedNumber = new int[6];
+        int[] randomNumber = new int[6];
+        Random random = new Random();
         userNameInput();
 
+        
         for (int i = 0; i < 6; i++) {
-            guessednumber[i] = userNumberInput(guessednumber);
+            guessedNumber[i] = userNumberInput(guessedNumber);
         }
-
+            System.out.println();
+            System.out.println("Deine Zahlen sind: ");
         for (int i = 0; i < 6; i++) {
-            System.out.print(guessednumber[i] + " ");
+           System.out.print(guessedNumber[i] + " ");
+        }     
+        for(int i = 0; i<6; i++) {
+           randomNumber[i] = random.nextInt(49)+1;
+        //    if(randomNumber[i]!=randomNumber[i]);
+        //    continue;  hier muss irgendwas passieren, dass nicht die gleichen generiert werden
         }
-        System.out.println("Schluss");
+            System.out.println();
+            System.out.println("Die Lottozahlen sind: ");
+        for (int i = 0; i < 6; i++) {
+            System.out.print(randomNumber[i] + " ");
     }
+            System.out.println();
+        if(checkWin(guessedNumber, randomNumber)) {
+            System.out.println("Du hast im Lotto gewonnen");
+        }
+        else {
+            System.out.println("Du hast leider nicht im Lotto gewonnen");
+        }
+}
 
     // Funktionen
     static void userNameInput() {
@@ -40,37 +60,37 @@ public class Lotto {
             if (eingabe > 49 || eingabe < 1) {
                 System.out.println("Bitte gib eine Zahl zwischen 1 und 49 ein!");
                 continue;
+            }  
+            for(int i = 0; i<6; i++) {
+                if(eingabe == guessednumber[i]) {
+                    System.out.println("Die Zahl ist schon belegt, bitte gib eine neue Zahl ein");
+                    continue;
+            }  
+        break;
+        }
+        return eingabe;
+        }
+    }
+
+    static boolean checkWin(int[] guessedNumber,int[] randomNumber){
+		    for (int k = 0; k < 6; k++) {
+			    if (guessedNumber[k] == randomNumber[k]) {
+				return true;
+                }
+            }
+            return false;
+        }
             }
 
-            // TODO: eingabe in guessednummber kontrollieren
+ 
+  
+        
+ 
 
-            // if (Lottozahlen[index] == guessednumber[0]) {
-            // System.out.println("Die Zahl ist schon belegt, bitte gib eine neue Zahl
-            // ein");
-            // continue;
-            // }
-            break;
-        }
+   
 
-        return eingabe;
-    }
 
-    static int[] show(int[] guessednumber) {
-        System.out.println("Your numbers are " + guessednumber[0] + "," + guessednumber[1] + "," + guessednumber[2]
-                + "," + guessednumber[3] + "," + guessednumber[4] + "," + guessednumber[5] + ".");
-        return guessednumber;
-    }
-
-}
-
-// /*
-// * Was brauche ich alles:
-// * Welcome Funktion - check
-// * Lottozahlen - check
-// * User Input was er nimmt, 6 von 49 -check
-// * Enter number 1, number 2 ....
-// * Keine Doppelten und keine über 50, <>=
-// * output was die Zahlen waren und sortieren lassen
-// * Vergleich mit Farben
-// * Win lose Funktion
-// */
+// Es fehlt:
+// Zahlen ordnen
+// Error beheben mit 1 1 1 1 1 1 und dem Output
+// Generate Numbers duplicate
