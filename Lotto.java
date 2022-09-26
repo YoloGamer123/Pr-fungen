@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Lotto {
     public static void main(String[] args) throws Exception {
@@ -14,31 +15,53 @@ public class Lotto {
         }
         System.out.println();
         System.out.println("Deine Zahlen sind: ");
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < guessedNumber.length; i++) {
+            Arrays.sort(guessedNumber);
             System.out.print(guessedNumber[i] + " ");
         }
-        for (int i = 0; i < 6; i++) {
-            int eingabe = random.nextInt(49) + 1;
-            if (randomNumber[i] != randomNumber[i]) {
-                continue; // nicht nontinue sonnst überspringt er nur die Zahl, eine while true schleefe
-                          // die bricht wenn es stimmt
+
+        
+        
+        while (true) {
+            int eingabe = random.nextInt(6) + 1;
+            randomNumber[i] = eingabe; 
+            
+            boolean found = false;
+            for (int i = 0; i < 6; i++) {
+               
+                if (eingabe == randomNumber[i]) {
+                    found = true;  
+                }
+                         
+                }
+                
+            
+            if (found){
+                continue;  
             }
-            // if();
-            // continue; hier muss irgendwas passieren, dass nicht die gleichen generiert
-            // werden
+            break;
         }
+       
+            
         System.out.println();
         System.out.println("Die Lottozahlen sind: ");
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < randomNumber.length; i++) {
+            Arrays.sort(randomNumber);
             System.out.print(randomNumber[i] + " ");
         }
+
         System.out.println();
         if (checkWin(guessedNumber, randomNumber)) {
-            System.out.println("Du hast im Lotto gewonnen");
-        } else {
-            System.out.println("Du hast leider nicht im Lotto gewonnen");
+            System.out.println("Du hast den 6er im Lotto gewonnen");
+        }
+        else {
+            System.out.println("Du hast leider nicht den 6er im Lotto gewonnen");
         }
     }
+
+
+
+    
 
     // Funktionen
     static void userNameInput() {
@@ -55,7 +78,8 @@ public class Lotto {
             Scanner scanname = new Scanner(System.in);
             try {
                 eingabe = scanname.nextInt();
-            } catch (Exception e) {
+            } 
+            catch (Exception e) {
                 System.out.println("Nur Zahlen eingeben");
                 continue;
             }
@@ -63,12 +87,15 @@ public class Lotto {
                 System.out.println("Bitte gib eine Zahl zwischen 1 und 49 ein!");
                 continue;
             }
+            boolean found = false;
             for (int i = 0; i < 6; i++) {
                 if (eingabe == guessednumber[i]) {
                     System.out.println("Die Zahl ist schon belegt, bitte gib eine neue Zahl ein");
-                    continue;
+                    found = true;
                 }
-                break;
+            }
+            if (found){
+                continue;
             }
             return eingabe;
         }
@@ -79,6 +106,7 @@ public class Lotto {
             if (guessedNumber[k] == randomNumber[k]) {
                 return true;
             }
+            // hier noch was ändern
         }
         return false;
     }
