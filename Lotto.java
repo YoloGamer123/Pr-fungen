@@ -6,8 +6,7 @@ public class Lotto {
     public static void main(String[] args) throws Exception {
 
         int[] guessedNumber = new int[6];
-        int[] randomNumber = new int[6];
-        Random random = new Random();
+        int[] randomNumbers = new int[6];
         userNameInput();
 
         for (int i = 0; i < 6; i++) {
@@ -20,48 +19,45 @@ public class Lotto {
             System.out.print(guessedNumber[i] + " ");
         }
 
-        
-        
-        while (true) {
-            int eingabe = random.nextInt(6) + 1;
-            randomNumber[i] = eingabe; 
-            
-            boolean found = false;
-            for (int i = 0; i < 6; i++) {
-               
-                if (eingabe == randomNumber[i]) {
-                    found = true;  
-                }
-                         
-                }
-                
-            
-            if (found){
-                continue;  
-            }
-            break;
-        }
-       
-            
-        System.out.println();
-        System.out.println("Die Lottozahlen sind: ");
-        for (int i = 0; i < randomNumber.length; i++) {
-            Arrays.sort(randomNumber);
-            System.out.print(randomNumber[i] + " ");
+        for (int i = 0; i < randomNumbers.length; i++) {
+            randomNumbers[i] = generateNumber(randomNumbers);
         }
 
         System.out.println();
-        if (checkWin(guessedNumber, randomNumber)) {
-            System.out.println("Du hast den 6er im Lotto gewonnen");
+        System.out.println("Die Lottozahlen sind: ");
+        for (int i = 0; i < randomNumbers.length; i++) {
+            Arrays.sort(randomNumbers);
+            System.out.print(randomNumbers[i] + " ");
         }
-        else {
+
+        System.out.println();
+        if (checkWin(guessedNumber, randomNumbers)) {
+            System.out.println("Du hast den 6er im Lotto gewonnen");
+        } else {
             System.out.println("Du hast leider nicht den 6er im Lotto gewonnen");
         }
     }
 
+    static int generateNumber(int[] randomNumbers) {
+        Random random = new Random();
+        while (true) {
+            int randomNumber = random.nextInt(6) + 1;
 
+            boolean found = false;
+            for (int i = 0; i < 6; i++) {
 
-    
+                if (randomNumber == randomNumbers[i]) {
+                    found = true;
+                }
+
+            }
+
+            if (found) {
+                continue;
+            }
+            return randomNumber;
+        }
+    }
 
     // Funktionen
     static void userNameInput() {
@@ -78,8 +74,7 @@ public class Lotto {
             Scanner scanname = new Scanner(System.in);
             try {
                 eingabe = scanname.nextInt();
-            } 
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Nur Zahlen eingeben");
                 continue;
             }
@@ -94,7 +89,7 @@ public class Lotto {
                     found = true;
                 }
             }
-            if (found){
+            if (found) {
                 continue;
             }
             return eingabe;
